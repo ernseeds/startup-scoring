@@ -1,0 +1,29 @@
+{
+  "name": "demoproj",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.8.1",
+    "axis": "^1.0.0",
+    "chart.js": "^4.4.8",
+    "cors": "^2.8.5",
+    "events": "^3.3.0",
+    "express": "^4.21.2",
+    "highlight.js": "^11.11.1",
+    "hljs": "^6.2.3",
+    "marked": "^15.0.7",
+    "parse": "^6.0.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.1.0",
+    "vite-plugin-vue-devtools": "^7.7.2"
+  }
+}
