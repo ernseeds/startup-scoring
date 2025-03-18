@@ -3,17 +3,17 @@
     <h3 class="result-title">结果</h3>
     <ul class="result-list">
       <li v-for="(answer, index) in answers" :key="index" class="result-item">
-        <strong>{{ questions[index].label }}：</strong>{{ answer }}
+        <p>{{ questions[index].label }}：{{ answer }}</p>
       </li>
     </ul>
     <div v-if="finalScore !== null" class="score-chart">
-      <h3 class="score-title">总评分: {{ finalScore }}</h3>
+      <p class="score-title">总评分: {{ finalScore }}</p>
       <div ref="chartContainer" class="chart-container">
         <canvas id="radarChart"></canvas>
         <div class="score-overlay">{{ finalScore }}</div>
       </div>
     </div>
-    <div id="suggestion">建议改进的领域</div>
+    <div id="suggestion"><p>建议改进的领域</p></div>
     <div class="agent-output" v-if="responseData && responseData.output">
       <div v-html="formattedOutput" class="output-content"></div>
     </div>
@@ -38,7 +38,7 @@ export default {
         { label: "4. 社保人数", options: ["3人以下", "3-5人", "5-10人", "10人以上"] },
         { label: "5. 法人网贷", options: ["3笔以上", "1-3笔", "0笔"] },
         { label: "6. 发明专利", options: ["0项", "1-3项", "3项以上"] },
-        { label: "7. 科技属性", options: ["无", "科技入家企业", "高新技术企业", "专精特新企业"] },
+        { label: "7. 科技属性", options: ["无", "科技入库企业", "高新技术企业", "专精特新企业"] },
         { label: "8. 上下游背书", options: ["无", "1-5笔央国企事业单位", "5笔以上央国企事业单位"] }
       ],
       scoreMapping: [
@@ -48,7 +48,7 @@ export default {
         { "3人以下": 2, "3-5人": 6, "5-10人": 8, "10人以上": 10 },
         { "3笔以上": 2, "1-3笔": 6, "0笔": 10 },
         { "0项": 2, "1-3项": 6, "3项以上": 10 },
-        { "无": 2, "科技入家企业": 6, "高新技术企业": 8, "专精特新企业": 10 },
+        { "无": 2, "科技入库企业": 6, "高新技术企业": 8, "专精特新企业": 10 },
         { "无": 2, "1-5笔央国企事业单位": 8, "5笔以上央国企事业单位": 10 }
       ],
       answers: JSON.parse(this.$route.query.answers || "[]"),
@@ -288,21 +288,25 @@ export default {
   font-weight: bold;
   text-align: center;
   margin-bottom: 12px;
+  font-family: inherit;
 }
 .result-list {
   list-style-type: none;
   padding: 40px;
+  font-family: inherit;
 }
 .result-item {
-  padding: 8px 0;
+  padding: 0px;
   color: #555;
   font-size: 18px;
+  font-family: inherit;
 }
 .score-title {
   margin-left: 40px;
-  padding: 8px 0;
+  padding: 0px;
   font-size: 20px;
   color: #555;
+  font-family: inherit;
 }
 .chart-container {
   position: relative;
@@ -314,12 +318,14 @@ export default {
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
+  font-family: inherit;
 }
 .chart-container canvas {
   width: 100% !important;
   height: 100% !important;
   max-width: 100%;
   max-height: 100%;
+  font-family: inherit;
 }
 .score-overlay {
   position: absolute;
@@ -327,11 +333,13 @@ export default {
   font-weight: bold;
   color: #002853;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
 }
 #suggestion {
   margin: 30px auto;
-  font-size: 21px;
-  font-weight: bold;
+  color: #555;
+  font-size: 20px;
+  font-family: inherit;
 }
 .agent-output {
   width: 100%;
@@ -343,12 +351,14 @@ export default {
   line-height: 1.6;
   color: #000;
   border-left: 5px solid #b0b0b0;
+  font-family: inherit;
 }
 .loading {
   text-align: center;
   font-size: 18px;
   color: #555;
   margin-top: 20px;
+  font-family: inherit;
 }
 
 @media (max-width: 600px) {
