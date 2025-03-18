@@ -187,11 +187,27 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            r: {
-              beginAtZero: true,
-              suggestedMax: 10,
-              ticks: { display: false },
-              pointLabels: { font: { size: 16 } }
+              r: {
+                min: 0,
+                max: 10,
+                // Optionally, you can keep the ticks callback if you need custom formatting
+                ticks: {
+                    // This callback is optional if you want to format the labels.
+                    callback: function(value) {
+                        return value;
+                    }
+                },
+                // Override the generated ticks so grid lines appear at these specific values.
+                afterBuildTicks: function(scale) {
+                    scale.ticks = [
+                        { value: 0, label: '0' },
+                        { value: 2, label: '2' },
+                        { value: 6, label: '6' },
+                        { value: 8, label: '8' },
+                        { value: 10, label: '10' }
+                    ];
+                },
+                pointLabels: { font: { size: 16 } }
             }
           },
           plugins: { legend: { display: false } }
@@ -254,7 +270,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  background: #f9f9f9;
+  background: white;
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
@@ -268,7 +284,7 @@ export default {
 .score-overlay {
   position: absolute;
   top: 50%;
-  left: 42%;
+  left: 47%;
   transform: translate(-50%, -50%);
   font-size: 20px;
   font-weight: bold;
