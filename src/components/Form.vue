@@ -83,9 +83,9 @@ export default {
 <style scoped>
 .form-container {
   max-width: 90%;
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 30px;
-  background: linear-gradient(135deg, #ecc062, #f39a67);
+  background: #ffffff;
   border-radius: 12px;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
   font-family: "Arial", sans-serif;
@@ -93,7 +93,7 @@ export default {
 .form-title {
   text-align: center;
   font-size: 28px;
-  color: #ffffff;
+  color: black;
   font-weight: bold;
   margin-bottom: 25px;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
@@ -158,17 +158,15 @@ export default {
   padding: 14px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
-  background: linear-gradient(135deg, #f3d112, #ebc77b);
+  color: black;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(255, 105, 135, 0.3);
   transition: all 0.3s ease-in-out;
   text-transform: uppercase;
 }
 .submit-btn:hover {
-  background: linear-gradient(135deg, #fff240, #f7d872);
+  color: black;
   transform: scale(1.05);
 }
 </style>

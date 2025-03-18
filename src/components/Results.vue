@@ -13,6 +13,7 @@
         <div class="score-overlay">{{ finalScore }}</div>
       </div>
     </div>
+    <div id="suggestion">建议改进的领域</div>
     <div class="agent-output" v-if="responseData && responseData.output">
       <div v-html="formattedOutput" class="output-content"></div>
     </div>
@@ -214,15 +215,15 @@ export default {
 
 <style scoped>
 .result-page {
-  max-width: 90%;
-  margin: 40px auto;
-  padding: 30px;
-  background: #f9f9f9;
+  max-width: 100%;
+  margin: 30px auto;
+  padding: 10px;
+  background: #ffffff;
   border-radius: 12px;
   font-family: "Arial", sans-serif;
 }
 .result-title {
-  font-size: 28px;
+  font-size: 26px;
   color: #000;
   font-weight: bold;
   text-align: center;
@@ -235,16 +236,16 @@ export default {
 .result-item {
   padding: 8px 0;
   color: #555;
-  font-size: 20px;
+  font-size: 18px;
 }
 .score-title {
   margin-left: 40px;
   padding: 8px 0;
-  font-size: 22px;
+  font-size: 20px;
   color: #555;
 }
 .chart-container {
-  width: 90%;
+  width: 100%;
   max-width: 1000px;
   height: auto;
   aspect-ratio: 1;
@@ -267,22 +268,28 @@ export default {
 .score-overlay {
   position: absolute;
   top: 50%;
-  left: 47%;
+  left: 42%;
   transform: translate(-50%, -50%);
   font-size: 20px;
   font-weight: bold;
   color: #002853;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
+#suggestion {
+    margin: 30px auto;
+    font-size: 21px;
+    font-weight: bold;
+}
 .agent-output {
+  width: 100%;
   margin-top: 25px;
-  padding: 15px;
-  background: #f7f2f4;
+  padding: 5px;
+  background: #f9f9f9;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
-  color: #f11515;
-  border-left: 5px solid #f7ef7e;
+  color: #000000;
+  border-left: 5px solid #b0b0b0;
 }
 .loading {
   text-align: center;
