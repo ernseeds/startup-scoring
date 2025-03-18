@@ -185,7 +185,16 @@ export default {
       this.chart = new Chart(ctx, {
         type: "radar",
         data: {
-          labels: this.questions.map(q => q.label),
+          // Modify the labels so that the 3rd and 7th labels split into 2 lines.
+          labels: this.questions.map((q, index) => {
+            if (index === 2) {
+              return ["3. 银行代发", "    工资人数"];
+            }
+            if (index === 6) {
+              return ["7. 科技", "属性"];
+            }
+            return q.label;
+          }),
           datasets: [{
             label: "评分",
             data: calculatedScores,
@@ -220,7 +229,8 @@ export default {
                   { value: 10, label: "10" }
                 ];
               },
-              pointLabels: { font: { size: 16 } }
+              // Adjust label font size if needed.
+              pointLabels: { font: { size: 12 } }
             }
           },
           plugins: { legend: { display: false } }
@@ -238,8 +248,8 @@ export default {
           // Compute container center.
           const centerX = container.clientWidth / 2;
           const centerY = container.clientHeight / 2;
-          // Apply a horizontal offset (5% of container width) to shift overlay left.
-          const offsetX = container.clientWidth * 0.05; // Adjust this value if needed.
+          // Apply a horizontal offset (adjust this value as needed).
+          const offsetX = container.clientWidth * 0.05; // You can tweak this value.
           const overlay = container.querySelector(".score-overlay");
           if (overlay) {
             overlay.style.left = (centerX - offsetX) + "px";
