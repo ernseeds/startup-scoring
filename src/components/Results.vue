@@ -339,7 +339,7 @@ export default {
   padding: 5px;
   background: #f9f9f9;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
   color: #000;
   border-left: 5px solid #b0b0b0;
