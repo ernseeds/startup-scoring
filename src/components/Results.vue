@@ -283,9 +283,8 @@ export default {
   font-family: "Arial", sans-serif;
 }
 .result-title {
-  font-size: 26px;
+  font-size: 20px;
   color: #000;
-  font-weight: bold;
   text-align: center;
   margin-bottom: 12px;
   font-family: inherit;
@@ -298,13 +297,13 @@ export default {
 .result-item {
   padding: 0px;
   color: #555;
-  font-size: 18px;
+  font-size: 16px;
   font-family: inherit;
 }
 .score-title {
   margin-left: 40px;
   padding: 0px;
-  font-size: 20px;
+  font-size: 17px;
   color: #555;
   font-family: inherit;
 }
@@ -338,7 +337,7 @@ export default {
 #suggestion {
   margin: 30px auto;
   color: #555;
-  font-size: 20px;
+  font-size: 18px;
   font-family: inherit;
 }
 .agent-output {

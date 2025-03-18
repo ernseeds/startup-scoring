@@ -92,9 +92,8 @@ export default {
 }
 .form-title {
   text-align: center;
-  font-size: 28px;
+  font-size: 20px;
   color: black;
-  font-weight: bold;
   margin-bottom: 25px;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   font-family: inherit; 
@@ -158,7 +157,6 @@ export default {
   width: 100%;
   padding: 14px;
   font-size: 18px;
-  font-weight: bold;
   color: black;
   border: none;
   border-radius: 6px;
