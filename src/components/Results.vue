@@ -17,7 +17,7 @@
     <div class="agent-output" v-if="responseData && responseData.output">
       <div v-html="formattedOutput" class="output-content"></div>
     </div>
-    <!-- add a loading indicator for SSE -->
+    <!-- Loading indicator for SSE -->
     <div v-else class="loading">加载中...</div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
       responseData: { output: "" },
       conversationId: null,
       requestId: null,
-      // API key and app ID 
+      // API key and App ID
       apikey: "6a3d672801854eb5adb7ec3314d38f08.L1BW7HOkQJ5qTHgH",
       appid: "1889123038365118464",
       chart: null
@@ -69,22 +69,30 @@ export default {
   },
   mounted() {
     this.drawChart();
-    window.addEventListener("resize", this.updateScoreOverlayFont);
+    window.addEventListener("resize", this.handleResize);
     this.setupConversationAndSSE();
   },
   beforeUnmount() {
-    window.removeEventListener("resize", this.updateScoreOverlayFont);
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    handleResize() {
+      this.updateScoreOverlayPosition();
+      this.updateScoreOverlayFont();
+    },
     async setupConversationAndSSE() {
       try {
         // Create conversation.
-        const convResponse = await axios.post(`https://open.bigmodel.cn/api/llm-application/open/v2/application/${this.appid}/conversation`, {}, {
-          headers: {
-            Authorization: `Bearer ${this.apikey}`,
-            "Content-Type": "application/json"
+        const convResponse = await axios.post(
+          `https://open.bigmodel.cn/api/llm-application/open/v2/application/${this.appid}/conversation`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.apikey}`,
+              "Content-Type": "application/json"
+            }
           }
-        });
+        );
         if (convResponse.status === 200 && convResponse.data.data && convResponse.data.data.conversation_id) {
           this.conversationId = convResponse.data.data.conversation_id;
         } else {
@@ -101,17 +109,21 @@ export default {
           value: userInput
         }];
         // Generate request ID.
-        const reqIdResponse = await axios.post(`https://open.bigmodel.cn/api/llm-application/open/v2/application/generate_request_id`, {
-          app_id: this.appid,
-          conversation_id: this.conversationId,
-          key_value_pairs: key_value_pairs
-        }, {
-          headers: {
-            Authorization: `Bearer ${this.apikey}`,
-            "Content-Type": "application/json",
-            accept: "*/*"
+        const reqIdResponse = await axios.post(
+          `https://open.bigmodel.cn/api/llm-application/open/v2/application/generate_request_id`,
+          {
+            app_id: this.appid,
+            conversation_id: this.conversationId,
+            key_value_pairs: key_value_pairs
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.apikey}`,
+              "Content-Type": "application/json",
+              accept: "*/*"
+            }
           }
-        });
+        );
         if (!reqIdResponse.data || !reqIdResponse.data.data || !reqIdResponse.data.data.id) {
           throw new Error("Failed to generate request ID: Unexpected response structure");
         }
@@ -186,34 +198,56 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          layout: {
+            padding: { top: 20, bottom: 20, left: 20, right: 20 }
+          },
           scales: {
-              r: {
-                min: 0,
-                max: 10,
-                // Optionally, you can keep the ticks callback if you need custom formatting
-                ticks: {
-                    // This callback is optional if you want to format the labels.
-                    callback: function(value) {
-                        return value;
-                    }
-                },
-                // Override the generated ticks so grid lines appear at these specific values.
-                afterBuildTicks: function(scale) {
-                    scale.ticks = [
-                        { value: 0, label: '0' },
-                        { value: 2, label: '2' },
-                        { value: 6, label: '6' },
-                        { value: 8, label: '8' },
-                        { value: 10, label: '10' }
-                    ];
-                },
-                pointLabels: { font: { size: 16 } }
+            r: {
+              min: 0,
+              max: 10,
+              ticks: {
+                callback: function(value) {
+                  return value;
+                }
+              },
+              afterBuildTicks: function(scale) {
+                // Define grid lines at specific values.
+                scale.ticks = [
+                  { value: 0, label: "0" },
+                  { value: 2, label: "2" },
+                  { value: 6, label: "6" },
+                  { value: 8, label: "8" },
+                  { value: 10, label: "10" }
+                ];
+              },
+              pointLabels: { font: { size: 16 } }
             }
           },
           plugins: { legend: { display: false } }
         }
       });
+      // Position and style the overlay after the chart has rendered.
+      this.updateScoreOverlayPosition();
       this.updateScoreOverlayFont();
+    },
+    updateScoreOverlayPosition() {
+      // Compute the center based on container dimensions and apply a horizontal offset.
+      this.$nextTick(() => {
+        const container = this.$refs.chartContainer;
+        if (container) {
+          // Compute container center.
+          const centerX = container.clientWidth / 2;
+          const centerY = container.clientHeight / 2;
+          // Apply a horizontal offset (5% of container width) to shift overlay left.
+          const offsetX = container.clientWidth * 0.05; // Adjust this value if needed.
+          const overlay = container.querySelector(".score-overlay");
+          if (overlay) {
+            overlay.style.left = (centerX - offsetX) + "px";
+            overlay.style.top = centerY + "px";
+            overlay.style.transform = "translate(-50%, -50%)";
+          }
+        }
+      });
     },
     updateScoreOverlayFont() {
       const container = this.$refs.chartContainer;
@@ -261,15 +295,11 @@ export default {
   color: #555;
 }
 .chart-container {
+  position: relative;
   width: 100%;
   max-width: 1000px;
-  height: auto;
   aspect-ratio: 1;
   margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   background: white;
   border-radius: 10px;
   padding: 10px;
@@ -283,18 +313,15 @@ export default {
 }
 .score-overlay {
   position: absolute;
-  top: 50%;
-  left: 47%;
-  transform: translate(-50%, -50%);
   font-size: 20px;
   font-weight: bold;
   color: #002853;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 #suggestion {
-    margin: 30px auto;
-    font-size: 21px;
-    font-weight: bold;
+  margin: 30px auto;
+  font-size: 21px;
+  font-weight: bold;
 }
 .agent-output {
   width: 100%;
@@ -304,7 +331,7 @@ export default {
   border-radius: 6px;
   font-size: 15px;
   line-height: 1.6;
-  color: #000000;
+  color: #000;
   border-left: 5px solid #b0b0b0;
 }
 .loading {
@@ -312,5 +339,26 @@ export default {
   font-size: 18px;
   color: #555;
   margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .chart-container {
+    padding: 10px;
+  }
+  .result-title {
+    font-size: 20px;
+  }
+  .score-title {
+    font-size: 18px;
+  }
+  .score-overlay {
+    font-size: 16px;
+  }
+  .result-list {
+    padding: 20px;
+  }
+  .result-item {
+    font-size: 16px;
+  }
 }
 </style>
