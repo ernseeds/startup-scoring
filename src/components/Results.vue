@@ -185,13 +185,10 @@ export default {
       this.chart = new Chart(ctx, {
         type: "radar",
         data: {
-          // Modify the labels so that the 3rd and 7th labels split into 2 lines.
+          // Modify labels so that the 7th label split into 2 lines.
           labels: this.questions.map((q, index) => {
             if (index === 2) {
               return ["3. 银行代发", "    工资人数"];
-            }
-            if (index === 6) {
-              return ["7. 科技", "属性"];
             }
             return q.label;
           }),
@@ -229,7 +226,6 @@ export default {
                   { value: 10, label: "10" }
                 ];
               },
-              // Adjust label font size if needed.
               pointLabels: { font: { size: 12 } }
             }
           },
@@ -248,8 +244,8 @@ export default {
           // Compute container center.
           const centerX = container.clientWidth / 2;
           const centerY = container.clientHeight / 2;
-          // Apply a horizontal offset (adjust this value as needed).
-          const offsetX = container.clientWidth * 0.05; // You can tweak this value.
+          // Apply a horizontal offset 
+          const offsetX = container.clientWidth * 0.02; 
           const overlay = container.querySelector(".score-overlay");
           if (overlay) {
             overlay.style.left = (centerX - offsetX) + "px";
@@ -303,7 +299,7 @@ export default {
 .score-title {
   margin-left: 40px;
   padding: 0px;
-  font-size: 17px;
+  font-size: 16px;
   color: #555;
   font-family: inherit;
 }
@@ -362,13 +358,14 @@ export default {
 
 @media (max-width: 600px) {
   .chart-container {
-    padding: 10px;
+    padding: 0px;
   }
   .result-title {
     font-size: 20px;
   }
   .score-title {
-    font-size: 18px;
+    margin-left: 20px;
+    font-size: 16px;
   }
   .score-overlay {
     font-size: 16px;
