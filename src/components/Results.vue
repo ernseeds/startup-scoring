@@ -245,7 +245,7 @@ export default {
           const centerX = container.clientWidth / 2;
           const centerY = container.clientHeight / 2;
           // Apply a horizontal offset 
-          const offsetX = container.clientWidth * 0.02; 
+          const offsetX = container.clientWidth * 0.0; 
           const overlay = container.querySelector(".score-overlay");
           if (overlay) {
             overlay.style.left = (centerX - offsetX) + "px";

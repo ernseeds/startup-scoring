@@ -23,11 +23,9 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "Form",
-  components: { NavBar },
   data() {
     return {
       questions: [
