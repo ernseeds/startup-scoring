@@ -1,5 +1,4 @@
 <template>
-  <!-- <NavBar /> -->
   <div class="form-container">
     <h2 class="form-title">融资雷达评估</h2>
     <form @submit.prevent="handleSubmit" class="evaluation-form">
